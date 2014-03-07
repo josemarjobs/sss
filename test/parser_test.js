@@ -24,6 +24,38 @@ describe('Parser', function () {
 			]))
 	})
 
+	it('parses nested rules', function () {
+		assert.deepEqual(
+			parser.parse("h1 {\n" + 
+									 " p { }\n" +
+									 " a { }\n" +
+									 "}"),
+			new nodes.StyleSheet([new nodes.Rule('h1', [
+					new nodes.Rule('p', []),
+					new nodes.Rule('a', [])
+				])
+			])
+		)
+	})
+
+	it('parses nested rules with properties', function () {
+		assert.deepEqual(
+			parser.parse("h1 {\n"+
+									 "	font-size: 10px;\n" +
+									 "	p { }\n" +
+									 "	font-size: 10px;\n" +
+									 "	p { }\n" +
+									 "}"),
+			new nodes.StyleSheet([new nodes.Rule('h1', [
+					new nodes.Property('font-size', ['10px']),
+					new nodes.Rule('p', []),
+					new nodes.Property('font-size', ['10px']),
+					new nodes.Rule('p', [])
+				])
+			])
+		)
+	})
+
 	describe('selector', function () {
 		itParsesSelector('h1');
 		itParsesSelector('#id');
@@ -42,6 +74,7 @@ describe('Parser', function () {
 		});
 	});
 
+
 	// helpers
 
 	function parseRule(css) {
@@ -49,7 +82,7 @@ describe('Parser', function () {
 	}
 
 	function parseDirective(css) {
-		return parseRule("h1 { " + css + " } ").properties[0]
+		return parseRule("h1 { " + css + " } ").declarations[0]
 	}
 
 	function parseValues (values) {

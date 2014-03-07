@@ -18,7 +18,7 @@ rules:
 ;
 
 rule:
-	selector '{' properties '}'		{ $$ = new nodes.Rule($1, $3) }
+	selector '{' declarations '}'		{ $$ = new nodes.Rule($1, $3) }
 ;
 
 selector:
@@ -26,11 +26,17 @@ selector:
 |	SELECTOR
 ;
 
-properties:
-	/* empty */										{ $$ = [] }
-|	property                   		{ $$ = [ $1 ]}
-| properties ';' property 			{ $$ = $1.concat($3) }
-| properties ';'								{ $$ = $1 }
+declarations:
+	/* empty */										  		{ $$ = [] }
+|	declarationGroup                	 	{ $$ = $1 }
+| declarations ';' declarationGroup  	{ $$ = $1.concat($3) }
+| declarations ';'										{ $$ = $1 }
+;
+
+declarationGroup:
+	property 														{ $$ = [ $1 ]}
+| rules
+| rules property 											{ $$ = $1.concat($2) }
 ;
 
 property:
@@ -39,8 +45,8 @@ property:
 
 
 values:
-	value                      		{ $$ = [ $1 ]}
-| values value 									{ $$ = $1.concat($2) }
+	value                      			{ $$ = [ $1 ]}
+| values value 										{ $$ = $1.concat($2) }
 ;
 
 value:

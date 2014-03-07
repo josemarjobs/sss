@@ -6,13 +6,16 @@ var test = "test";
 
 fs.watchFile('lib/grammar.jison', function() {
 	compile_parser();
-})
-;fs.watchFile('lib/tokens.jisonlex', function() {
-	compile_parser();
-})
-;fs.watchFile('lib/nodes.js', function() {
-	compile_parser();
 });
+fs.watchFile('lib/tokens.jisonlex', function() {
+	compile_parser();
+})
+fs.watchFile('lib/nodes.js', function() {
+	compile_parser();
+})
+fs.watchFile('lib/context.js', function() {
+	compile_parser();
+})
 
 fs.watch(test, function() {
 	run_tests();
