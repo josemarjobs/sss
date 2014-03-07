@@ -1,0 +1,23 @@
+{
+  "name": "sss",
+  "version": "0.0.0",
+  "description": "Simple CSS Preprocessor",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/josemarjobs/sss.git"
+  },
+  "author": "Josemar Magalhaes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/josemarjobs/sss/issues"
+  },
+  "homepage": "https://github.com/josemarjobs/sss"
+}
